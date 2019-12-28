@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.page-loader {
+    visibility: visible;
+    opacity: 0.999;
+    -webkit-transition: opacity 1s ease,visibility 1s ease;
+    transition: opacity 1s ease,visibility 1s ease;
+}
+
+.page-loader.is-disabled {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
