@@ -4,7 +4,7 @@
 Plugin Name: WPU Page Transitions
 Plugin URI: https://github.com/WordPressUtilities/wpupagetransitions
 Description: Add smooth transitions between pages without AJAX
-Version: 0.1.0
+Version: 0.1.1
 Author: Darklg
 Author URI: http://darklg.me/
 License: MIT License
@@ -12,15 +12,16 @@ License URI: http://opensource.org/licenses/MIT
 */
 
 class WPUPageTransitions {
-    private $plugin_version = '0.1.0';
+    private $plugin_version = '0.1.1';
     private $color = '#FFFFFF';
+
     public function __construct() {
-        add_action('plugins_loaded', array(&$this, 'plugins_loaded'));
+        add_action('wp', array(&$this, 'wp'));
         add_action('wp_enqueue_scripts', array(&$this, 'wp_enqueue_scripts'));
         add_action('wp_head', array(&$this, 'wp_head'));
     }
 
-    public function plugins_loaded() {
+    public function wp() {
         $this->color = apply_filters('wpupagetransitions_color', $this->color);
     }
 
@@ -32,7 +33,7 @@ class WPUPageTransitions {
     }
 
     public function wp_head() {
-        echo '<div class="page-loader" style="z-index:9999;position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;background-color:' . $this->color . ';"></div>';
+        echo '<div class="page-loader" style="background-color:' . $this->color . '"></div>';
     }
 
 }

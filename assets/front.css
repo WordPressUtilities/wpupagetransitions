@@ -1,8 +1,20 @@
 @charset "UTF-8";
 
+/* ----------------------------------------------------------
+  Loader
+---------------------------------------------------------- */
+
 .page-loader {
     visibility: visible;
+    z-index: 9999;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
     opacity: 0.999;
+    background-color: #000;
     -webkit-transition: opacity 1s ease,visibility 1s ease;
     transition: opacity 1s ease,visibility 1s ease;
 }
