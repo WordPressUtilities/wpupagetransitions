@@ -7,6 +7,4 @@ Add smooth transitions between pages without AJAX
 - [ ] Add admin for color.
 - [ ] Add admin for animation duration.
 - [ ] Add admin for logo (base64 ?).
-- [ ] Remove jQuery deps.
 - [ ] Add autoupdate.
-- [ ] Better inline code.

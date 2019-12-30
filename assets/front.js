@@ -1,15 +1,27 @@
-
 /* ----------------------------------------------------------
   Page loader
 ---------------------------------------------------------- */
 
-jQuery(document).ready(function($) {
+(function wpupagetransitions_front() {
     'use strict';
-    var $loader = jQuery('.page-loader');
 
-    $loader.addClass('is-disabled');
+    function domReady(func) {
+        if (/in/.test(document.readyState) || !document.body) {
+            setTimeout(function() {
+                domReady(func);
+            }, 9);
+        }
+        else {
+            func();
+        }
+    }
 
-    window.addEventListener("beforeunload", function(event) {
-        $loader.removeClass('is-disabled');
+    domReady(function() {
+        var $loader = document.querySelector('.page-loader');
+        $loader.classList.add('is-disabled');
+        window.addEventListener("beforeunload", function() {
+            $loader.classList.remove('is-disabled');
+        });
     });
-});
+
+}());
