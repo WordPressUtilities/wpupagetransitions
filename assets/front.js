@@ -5,6 +5,8 @@
 (function wpupagetransitions_front() {
     'use strict';
 
+    var transition_expire = parseInt(wpupagetransitions_settings.transition_expire, 10);
+
     function domReady(func) {
         if (/in/.test(document.readyState) || !document.body) {
             setTimeout(function() {
@@ -30,6 +32,6 @@
 
     window.addEventListener("popstate", set_loader);
 
-    setTimeout(set_loader, 3000);
+    setTimeout(set_loader, transition_expire);
 
 }());
