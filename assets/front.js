@@ -6,6 +6,7 @@
     'use strict';
 
     var transition_expire = parseInt(wpupagetransitions_settings.transition_expire, 10);
+    var $loader = false;
 
     function domReady(func) {
         if (/in/.test(document.readyState) || !document.body) {
@@ -17,21 +18,29 @@
             func();
         }
     }
-    domReady(set_loader);
+    domReady(hide_loader);
 
-    function set_loader() {
-        var $loader = document.querySelector('.page-loader');
+    function hide_loader() {
+        if (!$loader) {
+            $loader = document.querySelector('.page-loader');
+        }
         if ($loader.classList.contains('is-disabled')) {
             return;
         }
         $loader.classList.add('is-disabled');
-        window.addEventListener("beforeunload", function() {
-            $loader.classList.remove('is-disabled');
-        });
     }
 
-    window.addEventListener("popstate", set_loader);
+    function display_loader() {
+        if (!$loader) {
+            $loader = document.querySelector('.page-loader');
+        }
+        $loader.classList.remove('is-disabled');
+    }
 
-    setTimeout(set_loader, transition_expire);
+
+    window.addEventListener("popstate", hide_loader);
+    window.addEventListener("beforeunload", display_loader);
+
+    setInterval(hide_loader, transition_expire);
 
 }());
