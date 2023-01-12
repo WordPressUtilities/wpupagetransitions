@@ -3,24 +3,35 @@
 /*
 Plugin Name: WPU Page Transitions
 Plugin URI: https://github.com/WordPressUtilities/wpupagetransitions
+Update URI: https://github.com/WordPressUtilities/wpupagetransitions
 Description: Add smooth transitions between pages without AJAX
-Version: 0.2.3
+Version: 0.3.0
 Author: Darklg
-Author URI: http://darklg.me/
+Author URI: https://darklg.me/
 License: MIT License
-License URI: http://opensource.org/licenses/MIT
+License URI: https://opensource.org/licenses/MIT
 */
 
 class WPUPageTransitions {
-    private $plugin_version = '0.2.3';
+    private $plugin_version = '0.3.0';
     private $color = '#FFFFFF';
     private $duration = '1s';
     private $transition_expire = 3000;
 
     public function __construct() {
+        add_action('plugins_loaded', array(&$this, 'plugins_loaded'));
         add_action('wp', array(&$this, 'wp'));
         add_action('wp_enqueue_scripts', array(&$this, 'wp_enqueue_scripts'));
         add_action('wp_head', array(&$this, 'wp_head'));
+        add_action('wp_body_open', array(&$this, 'wp_body_open'));
+    }
+
+    function plugins_loaded() {
+        include dirname(__FILE__) . '/inc/WPUBaseUpdate/WPUBaseUpdate.php';
+        $this->settings_update = new \wpupagetransitions\WPUBaseUpdate(
+            'WordPressUtilities',
+            'wpupagetransitions',
+            $this->plugin_version);
     }
 
     public function wp() {
@@ -46,6 +57,9 @@ class WPUPageTransitions {
         echo 'background-color:' . $this->color . ';';
         echo 'transition-duration:' . $this->duration . ',' . $this->duration . ';';
         echo '}</style>';
+    }
+
+    function wp_body_open() {
         echo '<div class="page-loader"></div>';
     }
 
